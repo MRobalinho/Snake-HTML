@@ -1,0 +1,189 @@
+<!--
+  creditos: https://pastebin.com/Z3zhb7cY
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta charset="UTF-8"/>      <!-- Incluida esta linha -->
+	<title>Exercicio 2 - Javascript Snake game</title>
+    <link rel="stylesheet" href="css/arquivo.css">  <!-- Inclui a minha folha de estilos -->
+</head>
+
+<h1><center> Snake Game <center> </h1>               			<!-- Cabeçalho 1 -->
+<!--
+<h4><center> Pressione as setas >< para jogar <center> </h4>               			Cabeçalho 2 -->
+
+<body>
+<!--
+Desativado o style pois criei CSS declarado no head ( css/arquivo.css) 
+<style>
+canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border: 1px red;
+  }
+</style>
+-->
+  <!-- área responsavél pelo jogo -->
+  <div sytle="text-align:center;margin:auto">
+    <canvas id="gc" width="400" height="400" ></canvas>   <!-- Define tamanho da caixa CANVAS) -->
+  </div>
+</body>
+</html>
+
+  <!--
+    Início código Javascript
+    tudo que seja incluido dentro da tag <script> irá ser interpretado como
+    javascript
+    - boa prática é separar o HTML do código javascript e incluir um ficheiro anexo
+    com extensão .js
+  -->
+  <script>
+  window.onload=function() {
+      canv=document.getElementById("gc");
+      ctx=canv.getContext("2d");
+      document.addEventListener("keydown",keyPush);
+	  
+
+      setInterval(game,1500/(15 + comeu));  <!-- velocidade incrementada quando come maça -->
+		
+	  <!-- The setInterval() method calls a function or evaluates an expression at specified
+	  <!-- intervals (in milliseconds).The setInterval() method will continue calling the function
+	  <!-- until clearInterval() is called, or the window is closed.The ID value returned by 
+	  <!-- setInterval() is used as the parameter for the clearInterval() method.
+      <!-- Tip: 1000 ms = 1 second. -->
+	  }
+	  
+  px=py=10;
+  gs=tc=20;
+  ax=ay=15;
+  xv=yv=0;
+  trail=[];
+  tail = 5;
+  comeu = 0;  <!-- contador para as macas comidas -->
+  score = 0;  <!-- variavel para fazer um score -->
+  function game() {
+    <!-- Aplicando controle de score e reset de valores para reinicio do Jogo -->
+      score++     <!-- Incremento do SCORE --> 
+	  document.getElementById('totalscore').innerHTML = score;
+	  if(score > 1001){
+		tail  = 1;
+	    comeu = 0;  <!-- contador para as macas comidas -->
+	    score = 0;
+	    alert("Terminou o seu tempo !");
+	  }
+	<!---------------------------------------------------->
+      px+=xv;
+      py+=yv;
+      if(px<0) {
+          px= tc-1;
+      }
+      if(px>tc-1) {
+          px= 0;
+      }
+      if(py<0) {
+          py= tc-1;
+      }
+      if(py>tc-1) {
+          py= 0;
+      }
+      ctx.fillStyle="Cyan";  <!-- "black"; ver cores em https://www.w3schools.com/colors/colors_names.asp -->
+      ctx.fillRect(0,0,canv.width,canv.height);
+	  ctx.fillStyle="lime";  <!-- cor ds Snake -->
+      if (comeu>2) {
+	  	  ctx.fillStyle="Yellow";  <!-- cor ds Snake muda no incremento de comer maças-->
+		  }
+	  if (comeu>4){
+	      ctx.fillStyle="DarkOrange";  <!-- cor ds Snake muda no incremento de comer maças-->
+          }	  
+      if (comeu>6){
+	      ctx.fillStyle="HotPink";  <!-- cor ds Snake muda no incremento de comer maças-->
+          }	
+	  score = score + 1;	  
+      for(var i=0;i<trail.length;i++) {
+          ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
+          if(trail[i].x==px && trail[i].y==py) {
+              tail = 1+comeu; <!--1; numero de quadrados que representam o tamanho da snake -->
+			                  <!-- a snake aumenta à medidadque incrementa o comeu -->
+          }
+      }
+      trail.push({x:px,y:py});
+      while(trail.length>tail) {
+      trail.shift();
+      }
+
+      if(ax==px && ay==py) {
+	      comeu++;       <!-- contador de macas comidas
+          tail++;
+          ax=Math.floor(Math.random()*tc);
+          ay=Math.floor(Math.random()*tc);
+
+	      document.getElementById('macas').innerHTML = comeu; <!-- inicializar apresentação contador de macas comidas
+      }
+      ctx.fillStyle="red";   <!-- cor da maça -->
+      ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
+  }
+  function keyPush(evt) {
+      switch(evt.keyCode) {
+          case 37:
+              xv=-1;yv=0;
+              break;
+          case 38:
+              xv=0;yv=-1;
+              break;
+          case 39:
+              xv=1;yv=0;
+              break;
+          case 40:
+              xv=0;yv=1;
+              break;
+      }
+  }
+
+   </script>
+   
+  
+   <!-- Script para Inserir data --> 
+  
+ <script language='JavaScript'>
+	var time=new Date();
+	var date=time.getDate();
+	var year=time.getYear();
+	var lmonth=time.getMonth();
+	year = year + 1900;
+<!--	document.write("<input type=text name=nome value="+date+'/'+lmonth+'/'+year+">") -->
+<!-- 	document.write("<input type=text readonly name=nome size=10 value="+date+'/'+lmonth+'/'+year+">" )-->
+</script>
+
+<footer> 
+
+<script>
+
+
+
+
+</script>
+ <!-- Script para Inserir data 
+JavaScript Date Formats -  JavaScript date can be written as a string:
+
+When setting a date, without specifying the time zone, JavaScript will use the browser's time zone.
+When getting a date, without specifying the time zone, the result is converted to the browser's time  zone.
+In other words: If a date/time is created in GMT (Greenwich Mean Time), the date/time will be converted to 
+CDT (Central US Daylight Time) if a user browses from central US.
+ -->
+ 
+ <!--   <center> <p id="totalscore"></p> </center> -->
+    <center> <p>A cobra comeu <span id="macas"></span> maças   --  Seu Score : <span id="totalscore"></span> </p> </center> <!-- contador de macas comidas -->
+	
+	<center> <p id="demo"></p> </center>
+
+	<script>
+	var d = new Date();
+    document.getElementById("demo").innerHTML = d;
+	</script>
+	
+	<h4><center>Testes HTML - Manuel Robalinho  -  Pressione as setas >< para jogar <center></h4>  	<!-- Cabeçalho 2 -->
+</footer>
